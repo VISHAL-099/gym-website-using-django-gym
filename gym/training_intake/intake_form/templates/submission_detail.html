@@ -1,0 +1,128 @@
+<!-- submission_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Detail</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 900px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #0056b3;
+            text-transform: uppercase;
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table th {
+
+            color: black;
+            text-align: left;
+            padding: 15px;
+            font-size: 16px;
+            border-bottom: 2px solid #ddd;
+        }
+        .table tbody tr {
+            transition: all 0.3s ease-in-out;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.02);
+        }
+        .btn-back {
+            margin-top: 20px;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .icon {
+            color: #007bff;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="text-end">
+    <a href="{% url 'submitted_requests' %}" class="btn btn-primary btn-back m-2"><i class="fa-solid fa-arrow-left"></i> Back to all submissions</a>
+</div>
+
+
+    <div class="container">
+        <h1><i class="fa-solid fa-user-circle"></i> Submission Detail</h1>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover border">
+                <tbody>
+                    <tr><th><i class="fa-solid fa-user icon"></i> Full Name</th><td>{{ submission.full_name }}</td></tr>
+                    <tr><th><i class="fa-solid fa-venus-mars icon"></i> Gender</th><td>{{ submission.get_gender_display }}</td></tr>
+                    <tr><th><i class="fa-solid fa-calendar-days icon"></i> Age</th><td>{{ submission.age }}</td></tr>
+                    <tr><th><i class="fa-solid fa-ruler-vertical icon"></i> Height</th><td>{{ submission.height }} cm</td></tr>
+                    <tr><th><i class="fa-solid fa-weight icon"></i> Weight</th><td>{{ submission.weight }} kg</td></tr>
+                    <tr><th><i class="fa-solid fa-briefcase icon"></i> Occupation</th><td>{{ submission.occupation }}</td></tr>
+                    <tr><th><i class="fa-solid fa-running icon"></i> Activity Level</th><td>{{ submission.activity_level }}</td></tr>
+                    <tr><th><i class="fa-solid fa-business-time icon"></i> Work Schedule</th><td>{{ submission.work_schedule }}</td></tr>
+                    <tr><th><i class="fa-solid fa-plane icon"></i> Travel Frequency</th><td>{{ submission.travel_frequency }}</td></tr>
+                    <tr><th><i class="fa-solid fa-dumbbell icon"></i> Physical Activities</th><td>{{ submission.physical_activities }}</td></tr>
+                    <tr><th><i class="fa-solid fa-stethoscope icon"></i> Medical Conditions</th><td>{{ submission.medical_conditions }}</td></tr>
+                    <tr><th><i class="fa-solid fa-pills icon"></i> Medications</th><td>{{ submission.medications }}</td></tr>
+                    <tr><th><i class="fa-solid fa-hand-holding-medical icon"></i> Therapies</th><td>{{ submission.therapies }}</td></tr>
+                    <tr><th><i class="fa-solid fa-user-injured icon"></i> Injuries</th><td>{{ submission.injuries }}</td></tr>
+                    <tr><th><i class="fa-solid fa-dna icon"></i> Family Diseases</th><td>{% if submission.family_diseases %}Yes{% else %}No{% endif %}</td></tr>
+                    <tr><th><i class="fa-solid fa-smoking icon"></i> Smoking Status</th><td>{% if submission.smoking_status %}Yes{% else %}No{% endif %}</td></tr>
+                    <tr><th><i class="fa-solid fa-utensils icon"></i> Diet Type</th><td>{{ submission.diet_type }}</td></tr>
+                    <tr><th><i class="fa-solid fa-bullseye icon"></i> Fitness Goals</th><td>{{ submission.fitness_goals }}</td></tr>
+                    <tr><th><i class="fa-solid fa-calendar-check icon"></i> Training Frequency</th><td>{{ submission.training_frequency }} days/week</td></tr>
+                    <tr><th><i class="fa-solid fa-clock icon"></i> Preferred Training Time</th><td>{{ submission.preferred_training_time }}</td></tr>
+                    <tr><th><i class="fa-solid fa-comment-dots icon"></i> Expectations</th><td>{{ submission.expectations }}</td></tr>
+                    <tr><th><i class="fa-solid fa-file-contract icon"></i> Agreed to Terms</th><td>{% if submission.agreed_terms %}Yes{% else %}No{% endif %}</td></tr>
+                    <tr><th><i class="fa-solid fa-phone icon"></i> Phone Number</th><td>{{ submission.phone_number }}</td></tr>
+
+                    {% if submission.health_reports %}
+                    <tr>
+                        <th><i class="fa-solid fa-file-medical icon"></i> Health Report</th>
+                        <td><a href="{{ submission.health_reports.url }}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-download"></i> Download Report</a></td>
+                    </tr>
+                    {% endif %}
+
+                    {% if submission.attached_file %}
+                    <tr>
+                        <th><i class="fa-solid fa-paperclip icon"></i> Attached File</th>
+                        <td><a href="{{ submission.attached_file.url }}" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-download"></i> Download File</a></td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+      <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 My Website. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
